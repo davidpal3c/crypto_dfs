@@ -1,0 +1,15 @@
+Here's the data:
+
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Symbol</th>
+      <th>Price (USD)</th>
+    </tr>
+    {% for item in crypto_df %}
+    <tr>
+      <td>{{ item.get("name") }}</td>  <td>{{ item.get("symbol") }}</td>
+      <td>{{ item.get("quote").get("USD").get("price") }}</td>  </tr>
+    {% endfor %}
+  </table>
