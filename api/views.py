@@ -2,16 +2,46 @@ from django.shortcuts import render
 import pandas as pd
 import json
 from django.http import JsonResponse
-from .fetch import crypto_df
+from .fetch import api_exec
 
-# Create your views here.
+import requests
 
-# def current_df_json_response():
+
+def api_exec2():
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+    headers = {
+        'Accepts': 'application/json',
+        'X-CMC_PRO_API_KEY': 'c6b393db-6b8c-4faf-8cb5-4e918e116472',
+    }
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    return data['data']
 
 
 def current_df(request):
     
+    if 'crypto_data' not in request.session:
+        data = api_exec()
+        print(json.dumps(data, indent=2))
+        request.session['crypto_data'] = data
+    else:
+        data = request.session['crypto_data']
+
+
     # data = json.dumps(df.to_dict())
-    context = {'json_data': crypto_df}
+    context = {'json_data': data}
 
     return render(request, 'api/current_df.html', context)
+
+
+
+# def current_df(request):
+    
+#     data = api_exec()
+#     print(json.dumps(data, indent=2))
+
+#     # data = json.dumps(df.to_dict())
+#     context = {'json_data': data}
+    
+
+#     return render(request, 'api/current_df.html', context)
