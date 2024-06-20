@@ -97,12 +97,18 @@ def api_exec():
 
         return crypto_data
     
-    # for i in range(333):
-    #     print(api_exec())
-    #     print('\nAPI execution completed')
-    #     sleep(60)  # Wait for 60 seconds before the next iteration
 
-    # exit()
+
+# Example usage (uncomment if needed)
+# for _ in range(3):
+#     crypto_data = api_exec()
+#     if crypto_data:
+#         # Process data here (e.g., print, store, etc.)
+#         print(crypto_data)
+#     else:
+#         print("No data available")
+#     sleep(60)
+
 
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print(f'Error: API request failed: {e}')
@@ -122,8 +128,26 @@ def api_exec():
 
             df['timestamp'] = df['timestamp'].astype(str)  # Convert Timestamp to string
 
+            # group by name and get mean 
+            # df = df.groupby('name', sort=False)[['quote.USD.percent_change_1h', 
+            #                                 'quote.USD.percent_change_24h',
+            #                                 'quote.USD.percent_change_7d',
+            #                                 'quote.USD.percent_change_30d',
+            #                                 'quote.USD.percent_change_60d',
+            #                                 'quote.USD.percent_change_90d'
+            #                                 ]].mean()
+            
+            # df = df.stack()
+            # df = df.to_frame(name='values')
+
+
+
             # Convert DataFrame to a list of dictionaries
-            crypto_data = df.to_dict(orient='records')
+            # crypto_data = df.to_dict(orient='records')
+
+
+            crypto_data = df.to_html(index=False)
+            
             return crypto_data
         
         else:

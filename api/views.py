@@ -57,6 +57,8 @@ def current_df(request):
     # print(json.dumps(data, indent=2))
 
     # data = json.dumps(df.to_dict())
+
+    print(data)
     context = {'json_data': data}
     
 
