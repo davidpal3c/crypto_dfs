@@ -46,7 +46,7 @@ def api_exec():
     # API request parameters
     parameters = {
         'start': '1',
-        'limit': '10',
+        'limit': '20',
         'convert': 'USD'
     }
     

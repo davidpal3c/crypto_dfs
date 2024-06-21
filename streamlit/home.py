@@ -15,8 +15,7 @@ if is_clicked:
 else: 
     st.write('')
 
-
-
+st.write(f"Crypto stats as of today: ")
 st.dataframe(main_df())
 
 
